@@ -25,6 +25,7 @@ public class SecurityConfig {
                         ).permitAll()
                         .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/staff").permitAll()
                         .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/staff").authenticated()
+                        .requestMatchers("/api/editais/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .formLogin(Customizer.withDefaults())
