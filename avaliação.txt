@@ -1,0 +1,12 @@
+Avaliação 1:
+
+1 - Onde estão as issues?
+2 - Onde está o projeto para acompanhamento das issues?
+3 - O docker ainda não está na develop.
+4 - Porque tem esses "pull requests" na branch da issue 1?
+ Merge pull request #5 from vilmar-classes-tads/issue-0-cadastro-usuarios-refeito
+ Merge pull request #3 from vilmar-classes-tads/revert-2-issue-0-cadastro-usuarios
+ Merge pull request #2 from vilmar-classes-tads/issue-0-cadastro-usuarios
+
+
+cada problema desse precisa ser corrigido via Issue.
