@@ -1,0 +1,40 @@
+name: Docker CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build with Maven
+        run: ./mvnw clean package -DskipTests
+
+      - name: Build Docker image
+        run: docker build -t sistema-editais:latest .
+
+      - name: Run Docker container (smoke test)
+        run: |
+          docker run -d --name editais-app -p 8080:8080 sistema-editais:latest
+          sleep 20
+          docker logs editais-app
+
+      - name: Stop and remove container
+        if: always()
+        run: |
+          docker stop editais-app || true
+          docker rm editais-app || true
