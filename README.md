@@ -40,6 +40,7 @@ Main module path:
 
 - JDK 17 or higher
 - Maven 3.9+
+- Docker (opcional)
 
 Check your environment:
 
@@ -51,15 +52,37 @@ mvn -v
 
 ## Running the Project
 
+### Maven
+
 From the project root:
 
-```powershell
-mvn spring-boot:run
+```bash
+./mvnw spring-boot:run
 ```
 
 The API will start on:
 
 - `http://localhost:8080`
+
+### Docker
+
+```bash
+# 1. Gerar o .jar
+./mvnw clean package -DskipTests
+
+# 2. Construir a imagem
+docker build -t sistema-editais:latest .
+
+# 3. Rodar o container
+docker run -d --name editais-app -p 8080:8080 sistema-editais:latest
+
+# 4. Ver logs
+docker logs editais-app
+
+# 5. Parar e remover
+docker stop editais-app
+docker rm editais-app
+```
 
 ## Running Tests
 
@@ -204,3 +227,5 @@ Examples:
 - Restarting the application clears all registered data.
 - The project disables datasource and JPA auto-configuration because no database is used yet.
 - The current project exposes a REST API, so the "redirect to login" acceptance criterion is represented by the `redirectTo` field in the success response.
+- Dockerfile disponivel na raiz — `docker build -t sistema-editais:latest .`
+- CI com GitHub Actions em `.github/workflows/docker.yml` (build Maven + build Docker + smoke test)
