@@ -2,6 +2,20 @@
 
 Todas as mudanças relevantes deste projeto serão documentadas neste arquivo.
 
+## [0.3.0] - 2026-06-15
+
+### Added
+
+* Criação do `Dockerfile` para containerização da aplicação.
+* Configuração de pipeline de Integração Contínua (CI) com GitHub Actions.
+* Automação do processo de build utilizando Maven no ambiente de CI.
+* Validação automática da aplicação através de execução em container Docker.
+
+### Changed
+
+* Padronização do processo de build e execução da aplicação.
+* Melhorias na infraestrutura do projeto para suportar integração e entrega contínuas.
+
 ## [0.2.0] - 2026-06-15
 
 ### Added
