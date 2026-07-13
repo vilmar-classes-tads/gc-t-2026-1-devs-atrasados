@@ -2,6 +2,18 @@
 
 Todas as mudanças relevantes deste projeto serão documentadas neste arquivo.
 
+## [0.3.1] - 2026-07-13
+
+### Fixed
+
+* Validação de dígitos verificadores do CPF (algoritmo oficial da Receita Federal).
+* Verificação de duplicidade de CPF/email movida para antes do hash BCrypt.
+* Campo `gender` agora obrigatório na criação de usuário.
+* Datas iguais de início e fim de submissão/avaliação agora são rejeitadas.
+* Validação de que `dataFimSubmissao` deve ser anterior a `dataInicioAvaliacao`.
+* Campo `ano` do edital agora validado entre 2020 e 2100.
+* Record `ApiErrorResponse` extraído para módulo compartilhado (`common/interfaces/rest/`), eliminando duplicação.
+
 ## [0.3.0] - 2026-06-15
 
 ### Added
