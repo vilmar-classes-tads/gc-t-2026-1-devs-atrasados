@@ -26,6 +26,17 @@ public class RegisterStaffService {
     public User register(RegisterStaffCommand command) {
         validatePassword(command.password());
 
+        String normalizedCpf = command.cpf() != null ? command.cpf().replaceAll("\\D", "") : null;
+        String normalizedEmail = command.email() != null ? command.email().trim().toLowerCase() : null;
+
+        if (normalizedCpf != null && userRepository.existsByCpf(normalizedCpf)) {
+            throw new CpfAlreadyRegisteredException(normalizedCpf);
+        }
+
+        if (normalizedEmail != null && userRepository.existsByEmail(normalizedEmail)) {
+            throw new EmailAlreadyRegisteredException(normalizedEmail);
+        }
+
         User user = User.create(
                 command.fullName(),
                 command.socialName(),
@@ -43,14 +54,6 @@ public class RegisterStaffService {
                 ),
                 Set.of(Role.ROLE_COORDINATOR, Role.ROLE_REVIEWER)
         );
-
-        if (userRepository.existsByCpf(user.getCpf())) {
-            throw new CpfAlreadyRegisteredException(user.getCpf());
-        }
-
-        if (userRepository.existsByEmail(user.getEmail())) {
-            throw new EmailAlreadyRegisteredException(user.getEmail());
-        }
 
         return userRepository.save(user);
     }

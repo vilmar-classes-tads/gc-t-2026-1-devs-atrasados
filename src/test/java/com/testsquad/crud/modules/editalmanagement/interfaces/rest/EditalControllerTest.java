@@ -30,13 +30,14 @@ class EditalControllerTest {
                         .content("""
                                 {
                                   "fullName": "Admin Editais",
-                                  "cpf": "00011122233",
+                                  "cpf": "000.111.222-85",
                                   "email": "admin.editais@ifpe.edu.br",
                                   "password": "admin123",
                                   "staffType": "FACULTY",
                                   "campus": "Main Campus",
                                   "educationArea": "Education",
-                                  "academicDegree": "MASTERS"
+                                  "academicDegree": "MASTERS",
+                                  "gender": "OTHER"
                                 }
                                 """));
     }
