@@ -1,5 +1,6 @@
 package com.testsquad.crud.modules.editalmanagement.interfaces.rest;
 
+import com.testsquad.crud.common.interfaces.rest.ApiErrorResponse;
 import com.testsquad.crud.modules.editalmanagement.application.exception.EditalNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

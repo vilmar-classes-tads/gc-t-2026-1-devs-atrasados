@@ -28,7 +28,7 @@ class StaffRegistrationControllerTest {
                                 {
                                   "fullName": "Ana Pereira",
                                   "socialName": "Ana",
-                                  "cpf": "321.654.987-00",
+                                  "cpf": "321.654.987-91",
                                   "email": "ana.pereira@ifpe.edu.br",
                                   "password": "secret123",
                                   "staffType": "FACULTY",
@@ -43,7 +43,7 @@ class StaffRegistrationControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.message").value("Registration completed successfully. You can now sign in."))
                 .andExpect(jsonPath("$.redirectTo").value("/login"))
-                .andExpect(jsonPath("$.staff.cpf").value("32165498700"))
+                .andExpect(jsonPath("$.staff.cpf").value("32165498791"))
                 .andExpect(jsonPath("$.staff.email").value("ana.pereira@ifpe.edu.br"))
                 .andExpect(jsonPath("$.staff.campus").value("North Zone Campus"))
                 .andExpect(jsonPath("$.staff.staffType").value("FACULTY"));
@@ -63,7 +63,7 @@ class StaffRegistrationControllerTest {
                                 {
                                   "fullName": "Bruno Lima",
                                   "socialName": "Bruno",
-                                  "cpf": "741.852.963-00",
+                                  "cpf": "741.852.963-55",
                                   "email": "bruno.lima@ifpe.edu.br",
                                   "password": "secret456",
                                   "staffType": "FACULTY",

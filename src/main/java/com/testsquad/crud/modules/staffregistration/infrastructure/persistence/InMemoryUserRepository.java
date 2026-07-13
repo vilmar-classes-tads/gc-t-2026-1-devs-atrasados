@@ -27,15 +27,7 @@ public class InMemoryUserRepository implements UserRepository {
     }
 
     @Override
-    public synchronized User save(User user) {
-        if (USERS_BY_CPF.containsKey(user.getCpf())) {
-            return USERS_BY_CPF.get(user.getCpf());
-        }
-
-        if (USERS_BY_EMAIL.containsKey(user.getEmail())) {
-            return USERS_BY_EMAIL.get(user.getEmail());
-        }
-
+    public User save(User user) {
         USERS_BY_CPF.put(user.getCpf(), user);
         USERS_BY_EMAIL.put(user.getEmail(), user);
         return user;

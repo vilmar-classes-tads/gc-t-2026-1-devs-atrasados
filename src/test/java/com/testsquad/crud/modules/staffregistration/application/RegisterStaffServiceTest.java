@@ -3,6 +3,7 @@ package com.testsquad.crud.modules.staffregistration.application;
 import com.testsquad.crud.modules.staffregistration.application.exception.CpfAlreadyRegisteredException;
 import com.testsquad.crud.modules.staffregistration.application.exception.EmailAlreadyRegisteredException;
 import com.testsquad.crud.modules.staffregistration.domain.model.AcademicDegree;
+import com.testsquad.crud.modules.staffregistration.domain.model.Gender;
 import com.testsquad.crud.modules.staffregistration.domain.model.Role;
 import com.testsquad.crud.modules.staffregistration.domain.model.StaffType;
 import com.testsquad.crud.modules.staffregistration.domain.model.User;
@@ -29,16 +30,16 @@ class RegisterStaffServiceTest {
 
     @Test
     void shouldRegisterStaffWithNormalizedCpfAndLowercaseEmail() {
-        var user = service.register(command("Maria da Silva", "123.456.789-01", "MARIA@IFPE.EDU.BR"));
+        var user = service.register(command("Maria da Silva", "111.444.777-35", "MARIA@IFPE.EDU.BR"));
 
-        assertEquals("12345678901", user.getCpf());
+        assertEquals("11144477735", user.getCpf());
         assertEquals("maria@ifpe.edu.br", user.getEmail());
         assertEquals(2, user.getRoles().size());
     }
 
     @Test
     void shouldHashPasswordAndAssignDefaultRoles() {
-        var user = service.register(command("Maria da Silva", "123.456.789-01", "MARIA@IFPE.EDU.BR"));
+        var user = service.register(command("Maria da Silva", "111.444.777-35", "MARIA@IFPE.EDU.BR"));
 
         org.junit.jupiter.api.Assertions.assertNotEquals("secret123", user.getPasswordHash());
         org.junit.jupiter.api.Assertions.assertTrue(user.getPasswordHash().startsWith("$2"));
@@ -48,18 +49,18 @@ class RegisterStaffServiceTest {
 
     @Test
     void shouldNotAllowDuplicateCpf() {
-        service.register(command("Maria da Silva", "12345678901", "maria@ifpe.edu.br"));
+        service.register(command("Maria da Silva", "11144477735", "maria@ifpe.edu.br"));
 
         assertThrows(CpfAlreadyRegisteredException.class,
-                () -> service.register(command("Joao Souza", "12345678901", "joao@ifpe.edu.br")));
+                () -> service.register(command("Joao Souza", "11144477735", "joao@ifpe.edu.br")));
     }
 
     @Test
     void shouldNotAllowDuplicateEmail() {
-        service.register(command("Maria da Silva", "12345678901", "maria@ifpe.edu.br"));
+        service.register(command("Maria da Silva", "11144477735", "maria@ifpe.edu.br"));
 
         assertThrows(EmailAlreadyRegisteredException.class,
-                () -> service.register(command("Joao Souza", "99988877766", "maria@ifpe.edu.br")));
+                () -> service.register(command("Joao Souza", "22255588846", "maria@ifpe.edu.br")));
     }
 
     @Test
@@ -68,7 +69,7 @@ class RegisterStaffServiceTest {
                 () -> service.register(new RegisterStaffCommand(
                         "Maria da Silva",
                         null,
-                        "12345678901",
+                        "11144477735",
                         "maria@ifpe.edu.br",
                         "12345",
                         StaffType.FACULTY,
@@ -84,7 +85,7 @@ class RegisterStaffServiceTest {
     @Test
     void shouldRequireIfpeInstitutionalEmail() {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> service.register(command("Maria da Silva", "12345678901", "maria@gmail.com")));
+                () -> service.register(command("Maria da Silva", "11144477735", "maria@gmail.com")));
 
         assertEquals("Email must use the institutional domain @ifpe.edu.br", exception.getMessage());
     }
@@ -100,7 +101,7 @@ class RegisterStaffServiceTest {
                 "Downtown Campus",
                 "Computer Science",
                 AcademicDegree.MASTERS,
-                null,
+                Gender.OTHER,
                 "https://lattes.cnpq.br/1234567890123456",
                 "+55 83 99999-9999"
         );

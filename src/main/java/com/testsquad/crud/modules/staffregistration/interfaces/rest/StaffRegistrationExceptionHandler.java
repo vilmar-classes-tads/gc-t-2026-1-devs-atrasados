@@ -1,5 +1,6 @@
 package com.testsquad.crud.modules.staffregistration.interfaces.rest;
 
+import com.testsquad.crud.common.interfaces.rest.ApiErrorResponse;
 import com.testsquad.crud.modules.staffregistration.application.exception.CpfAlreadyRegisteredException;
 import com.testsquad.crud.modules.staffregistration.application.exception.EmailAlreadyRegisteredException;
 import org.springframework.http.HttpStatus;

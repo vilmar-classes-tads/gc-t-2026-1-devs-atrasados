@@ -39,7 +39,7 @@ public class User {
         this.cpf = normalizeCpf(cpf);
         this.email = normalizeEmail(email);
         this.passwordHash = validatePasswordHash(passwordHash);
-        this.gender = gender;
+        this.gender = Objects.requireNonNull(gender, "Gender is required");
         this.lattesLink = normalizeOptionalUrl(lattesLink);
         this.phone = normalizeOptionalPhone(phone);
         this.profile = Objects.requireNonNull(profile, "Profile is required");
@@ -136,7 +136,44 @@ public class User {
         if (normalizedCpf.length() != 11) {
             throw new IllegalArgumentException("CPF must contain 11 digits");
         }
+
+        if (!isValidCpfDigits(normalizedCpf)) {
+            throw new IllegalArgumentException("CPF is invalid");
+        }
+
         return normalizedCpf;
+    }
+
+    private static boolean isValidCpfDigits(String cpf) {
+        if (cpf.chars().distinct().count() == 1) {
+            return false;
+        }
+
+        int sum = 0;
+        for (int i = 0; i < 9; i++) {
+            sum += (cpf.charAt(i) - '0') * (10 - i);
+        }
+        int firstDigit = 11 - (sum % 11);
+        if (firstDigit >= 10) {
+            firstDigit = 0;
+        }
+        if (firstDigit != (cpf.charAt(9) - '0')) {
+            return false;
+        }
+
+        sum = 0;
+        for (int i = 0; i < 10; i++) {
+            sum += (cpf.charAt(i) - '0') * (11 - i);
+        }
+        int secondDigit = 11 - (sum % 11);
+        if (secondDigit >= 10) {
+            secondDigit = 0;
+        }
+        if (secondDigit != (cpf.charAt(10) - '0')) {
+            return false;
+        }
+
+        return true;
     }
 
     private String normalizeEmail(String email) {
